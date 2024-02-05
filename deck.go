@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"math/rand"
 )
 
 type deck []string
@@ -26,6 +27,15 @@ func newDeck() deck {
 
 func deal(d deck, handSize int) (deck, deck) {
 	return d[:handSize], d[handSize:]
+}
+
+func (d deck) shuffle() {
+	for i := range d {
+		newPosition := rand.Intn(len(d) - 1)
+
+		d[i], d[newPosition] = d[newPosition], d[i]
+	}
+	
 }
 
 func (d deck) print() {
