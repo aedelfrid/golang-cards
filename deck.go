@@ -2,32 +2,61 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"strings"
+	//"os"
+	//"strings"
 	"math/rand"
 	"time"
 )
 
-type deck []string
+type deck []card
 
-func newDeck() deck {
+type card struct {
+	name string
+	rank int
+}
+
+func newDeck(p playset) deck {
 
 	cards := deck{}
 
-	cardSuits := []string{"Spades", "Clubs", "Diamonds", "Hearts"}
-	cardValues := []string{"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"}
+	cardSuits := []string{
+		"Spades",
+		"Clubs",
+		"Diamonds",
+		"Hearts",
+	}
+	cardValues := []string{
+		"Ace",
+		"Two",
+		"Three",
+		"Four",
+		"Five",
+		"Six",
+		"Seven",
+		"Eight",
+		"Nine",
+		"Ten",
+		"Jack",
+		"Queen",
+		"King",
+	}
 
 	for _, suit := range cardSuits {
-		for _, value := range cardValues {
-			cards = append(cards, value+" of "+suit)
+		for i, value := range cardValues {
+			cards = append(
+				cards,
+				card{value + " of " + suit, p.cardValues[i]},
+			)
+
 		}
 	}
 
 	return cards
 }
 
-func deal(d deck, handSize int) (deck, deck) {
-	return d[:handSize], d[handSize:]
+func (d deck) deal(handSize int) deck {
+	d = d[:handSize]
+	return d[handSize:]
 }
 
 func (d deck) shuffle() {
@@ -39,7 +68,7 @@ func (d deck) shuffle() {
 
 		d[i], d[newPosition] = d[newPosition], d[i]
 	}
-	
+
 }
 
 func (d deck) print() {
@@ -48,23 +77,23 @@ func (d deck) print() {
 	}
 }
 
-func (d deck) toString() string { 
-	return strings.Join([]string(d), ",")
-}
+// func (d deck) toString() string {
+// 	return strings.Join([]string(d), ",")
+// }
 
-func (d deck) saveToFile(filename string) error {
-	return os.WriteFile(filename, []byte(d.toString()), 0666)
-}
+// func (d deck) saveToFile(filename string) error {
+// 	return os.WriteFile(filename, []byte(d.toString()), 0666)
+// }
 
-func getFromFile(filename string) deck {
-	bs, err := os.ReadFile(filename)
-	
-	if err != nil {
-		fmt.Println("Error:",err)
+// func getFromFile(filename string) deck {
+// 	bs, err := os.ReadFile(filename)
 
-		return newDeck()
-	}
+// 	if err != nil {
+// 		fmt.Println("Error:",err)
 
-	return deck(strings.Split(string(bs), ","))
-	
-}
+// 		return newDeck()
+// 	}
+
+// 	return deck(strings.Split(string(bs), ","))
+
+// }

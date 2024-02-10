@@ -1,9 +1,13 @@
 package main
 
+import "fmt"
+
 func main() {
-	cards := newDeck()
+	startPrompt()
 
-	cards.shuffle()
+	game := gameSelect()
 
-	cards.print()
+	dealer := newDeck(game)
+
+	fmt.Println(dealer)
 }
