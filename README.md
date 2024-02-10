@@ -107,19 +107,19 @@ parse a json file of game values
             "name": "Texas Hold'em",
             "handSize": 5,
             "cardValues": {
-                "Ace": 13,
-                "King": 12,
-                "Queen": 11,
-                "Jack": 10,
-                "Ten": 9,
-                "Nine": 8,
-                "Eight": 7,
-                "Seven": 6,
-                "Six": 5,
-                "Five": 4,
-                "Four": 3,
-                "Three": 2,
-                "Two": 1,
+                "Ace" 13,
+		        "Two"1,
+		        "Three"2,
+                "Four"3,
+                "Five"4,
+                "Six"5,
+                "Seven"6,
+                "Eight"7,
+                "Nine"8,
+                "Ten"9,
+                "Jack"10,
+                "Queen"11,
+                "King" 12,
             }
         }
     ]
@@ -127,12 +127,24 @@ parse a json file of game values
     type game struct {
         name string
         handSize int
-        cardValues map[string]int
+        cardValues []int
+        // cardValues[0] = ace -> cardValues[12] = king
     }
 
     dealer := newDeck(cardValues)
 
-refactor newDeck() to apply value to 
+refactor newDeck() to apply value to each card
+
+    type deck []struct {
+        card string
+        rank int
+    }
+
+refactor saving and getting from file
+
+refactor toString -> toJson?
+
+
 
 #### player/dealer hands
 
