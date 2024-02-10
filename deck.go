@@ -56,7 +56,7 @@ func (d deck) saveToFile(filename string) error {
 	return os.WriteFile(filename, []byte(d.toString()), 0666)
 }
 
-func newDeckFromFile(filename string) deck {
+func getFromFile(filename string) deck {
 	bs, err := os.ReadFile(filename)
 	
 	if err != nil {
