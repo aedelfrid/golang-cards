@@ -15,7 +15,7 @@ type card struct {
 	rank int
 }
 
-func newDeck(p playset) deck {
+func newDeck(cardRanking []int) deck {
 
 	cards := deck{}
 
@@ -45,7 +45,7 @@ func newDeck(p playset) deck {
 		for i, value := range cardValues {
 			cards = append(
 				cards,
-				card{value + " of " + suit, p.cardValues[i]},
+				card{value + " of " + suit, cardRanking[i]},
 			)
 
 		}
@@ -55,8 +55,9 @@ func newDeck(p playset) deck {
 }
 
 func (d deck) deal(handSize int) deck {
-	d = d[:handSize]
-	return d[handSize:]
+	hand := d[:handSize]
+	d = d[handSize:]
+	return hand
 }
 
 func (d deck) shuffle() {

@@ -97,6 +97,21 @@ eg:
     Full House
     etc...
 
+store cards as 
+    type card struct {
+        suit string
+        value string
+        rank int
+    }
+
+then compare to hand hierarchy
+
+for i, card := deck {
+    switch card.suit {
+        case
+    }
+}
+
 higher cards - 
 card value changes by game?
 
@@ -187,7 +202,7 @@ set stakes at start of game?
     var startChips int
 
     if stakes == "High Stakes" {
-        startChips :=  2000
+        startChips =  2000
     }
 
 ## Stage two

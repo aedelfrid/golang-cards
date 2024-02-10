@@ -7,7 +7,9 @@ func main() {
 
 	game := gameSelect()
 
-	dealer := newDeck(game)
+	dealer := newDeck(game.cardValues)
 
-	fmt.Println(dealer)
+	player1 := dealer.deal(game.handSize)
+
+	fmt.Println(player1)
 }
