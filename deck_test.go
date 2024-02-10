@@ -1,8 +1,9 @@
 package main
 
 import (
-	"testing"
+	"os"
 	"reflect"
+	"testing"
 	"time"
 )
 
@@ -12,19 +13,18 @@ func TestNewDeck(t *testing.T) {
 	if len(d) != 52 {
 		t.Errorf("Expected deck length of 52, but got %v.", len(d))
 	}
+
+	if d[0] != "Ace of Spades" {
+		t.Errorf("Expected first card of Ace of Spades, but got %v", d[0])
+	}
+
+	if d[len(d) - 1] != "King of Hearts" {
+		t.Errorf("Expected last card of King of Hearts, but got %v", d[len(d) - 1])
+	}
 }
 
 func TestDeal(t *testing.T) {
-	cards := deck{}
-
-	cardSuits := []string{"Spades", "Clubs", "Diamonds", "Hearts"}
-	cardValues := []string{"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"}
-
-	for _, suit := range cardSuits {
-		for _, value := range cardValues {
-			cards = append(cards, value+" of "+suit)
-		}
-	}
+	cards := newDeck()
 
 	handSize := 8
 
@@ -56,4 +56,20 @@ func TestShuffle(t *testing.T) {
 		t.Error("Failed to randomize decks.")
 	}
 
+}
+
+func TestSaveToFileGetFromFile(t *testing.T) {
+	os.Remove("_deckTesting")
+
+	deck := newDeck()
+
+	deck.saveToFile("_deckTesting")
+
+	deckFromFile := getFromFile("_deckTesting")
+
+	if len(deckFromFile) != 52 {
+		t.Errorf("Expected deck size of 52, got %v.", len(deckFromFile))
+	}
+
+	os.Remove("_deckTesting")
 }
